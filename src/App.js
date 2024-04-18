@@ -1,25 +1,56 @@
+import React,{useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Textform from './components/Textform';
+import About from './components/About';
+import Navbar from './components/Navbar';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <About/>,
+  },
+]);
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const[mode,setMode]=useState("light");
+
+
+  
+
+   const toggleMode=() =>{
+    if(mode ==='light'){
+    setMode("dark");
+    document.body.style.backgroundColor="#0a2e53";
+   }else{
+    setMode("light");
+    document.body.style.backgroundColor="white";
+   }
+  }
+  return ( 
+   <>
+    
+    <Navbar title="Text-Converter"  aboutText="About" mode={mode} toggleMode={toggleMode}/>
+    <div className="container">
+    <Textform  RouterProvider router={router}   heading="Enter the text to analyze below." mode={mode}></Textform>
+    
+
+    
+    
     </div>
-  );
+   
+    
+     
+   </>
+    
+  );  
 }
 
 export default App;
